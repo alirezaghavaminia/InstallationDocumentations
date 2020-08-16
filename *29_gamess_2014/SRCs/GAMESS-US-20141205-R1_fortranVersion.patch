@@ -1,0 +1,13 @@
+diff -Nru gamess-20141205-R1.orig/gamess/config gamess-20141205-R1/gamess/config
+--- gamess-20141205-R1.orig/gamess/config	2020-08-03 11:43:44.778465623 +0430
++++ gamess-20141205-R1/gamess/config	2020-08-03 14:35:53.030934242 +0430
+@@ -396,6 +396,9 @@
+          case 4.9:
+             echo "   Good, the newest gfortrans can compile REAL*16 data type."
+             breaksw
++         case 5.4:
++            echo "   Good, the newest gfortrans can compile REAL*16 data type."
++            breaksw
+          default:
+             echo "The gfortran version number is not recognized."
+             echo "It should only have one decimal place, such as 4.x"

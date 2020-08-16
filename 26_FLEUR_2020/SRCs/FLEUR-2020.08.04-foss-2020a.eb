@@ -1,0 +1,57 @@
+easyblock = 'MakeCp'
+
+name = 'FLEUR'
+version = '2020.08.04'
+
+
+
+homepage = 'http://www.flapw.de/'
+description = """FLEUR is a feature-full, freely available FLAPW (full potential linearized augmented planewave) code,
+ based on density-functional theory."""
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+toolchainopts = {'usempi': True, 'r8': True}
+
+# download the .tar.gz file from: https://iffgit.fz-juelich.de/fleur/fleur/-/tree/release and rename it based on the version accordingly. 
+# or let easybuild handle that for you(not recommended).
+# sources = [{
+#     'fileneme': '%(name)s-$(version)s.tar.gz',
+#     'git_config': {
+#         'url': 'https://iffgit.fz-juelich.de/fleur/',
+#         'repo_name': 'fleur',
+#         'tag': 'release',
+#     },
+# }]
+
+sources = [{
+    'filename': 'fleur-%(version)s.tar.gz'
+}]
+checksums = ['47f40484fe866915c8e2df169c1437d01900c8d338a5a6df85e6da17a03d78bd']
+
+
+
+builddependencies = [('CMake','3.9.6','',('system',''))]
+
+dependencies = [
+    ('OpenBLAS','0.3.9'),
+    ('libxml2','2.9.9','',('GCCcore','9.3.0')),
+    ('HDF5','1.12.0'), # optional
+    ('ScaLAPACK','2.1.0'), #optional
+    # ('magma','2.5.1'), # if using GPU
+]
+
+prebuildopts = "./configure.sh -hdf5 TRUE -elpa_openmp && cd build && "
+
+
+
+# parallel build tends to fail
+parallel = 1
+
+files_to_copy = [(['build/inpgen', 'build/fleur_MPI'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/inpgen', 'bin/fleur_MPI'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'

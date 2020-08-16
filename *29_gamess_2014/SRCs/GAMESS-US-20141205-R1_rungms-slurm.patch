@@ -1,0 +1,49 @@
+diff -Nru gamess-20141205-R1.orig/gamess/rungms gamess-20141205-R1/gamess/rungms
+--- gamess-20141205-R1.orig/gamess/rungms	2020-08-03 11:43:44.778465623 +0430
++++ gamess-20141205-R1/gamess/rungms	2020-08-03 13:27:39.591816121 +0430
+@@ -37,11 +37,19 @@
+ echo This job is running on host $master
+ echo under operating system `uname` at `date`
+ if ($?SGE_O_LOGNAME)  set SCHED=SGE
++if ($?SLURM_JOB_ID)   set SCHED=SLURM
+ if ($SCHED == SGE) then
+    set SCR=$TMPDIR
+    echo "SGE has assigned the following compute nodes to this run:"
+    uniq $TMPDIR/machines
+ endif
++if ($SCHED == SLURM) then
++   # SCR is for large binary temporary files. Accordingly, it should only be
++   # set to a network file system if the connection to that file system is fast.
++   set SCR=$SCRATCH_DIR
++   echo "SLURM has assigned the following compute nodes to this run:"
++   scontrol show hostnames $SLURM_JOB_NODELIST | sort | uniq
++endif
+ #
+ echo "Available scratch disk space (Kbyte units) at beginning of the job is"
+ df -kh $SCR
+@@ -325,6 +333,11 @@
+          set NNODES=`wc -l $HOSTFILE`
+          set NNODES=$NNODES[1]
+       endif
++      if ($SCHED == SLURM) then
++         scontrol show hostnames $SLURM_JOB_NODELIST | sort | uniq > $HOSTFILE
++         set NNODES=`wc -l $HOSTFILE`
++         set NNODES=$NNODES[1]
++      endif
+    endif
+    #
+    setenv PROCFILE $SCR/$JOB.processes.mpd
+@@ -514,8 +527,12 @@
+          unset echo
+       endif
+       set echo
+-      mpiexec.hydra -f $PROCFILE -n $NPROCS \
++      if ($SCHED == SLURM) then
++         srun $GMSPATH/gamess.$VERNO.x < /dev/null
++      else
++         mpiexec.hydra -f $PROCFILE -n $NPROCS \
+             $GMSPATH/gamess.$VERNO.x < /dev/null
++      endif
+       unset echo
+       breaksw
+ 
