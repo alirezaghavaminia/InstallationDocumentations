@@ -1,0 +1,34 @@
+gem install --no-document fpm
+Fetching: stud-0.0.23.gem (100%)
+Successfully installed stud-0.0.23
+Fetching: cabin-0.9.0.gem (100%)
+Successfully installed cabin-0.9.0
+Fetching: clamp-1.0.1.gem (100%)
+Successfully installed clamp-1.0.1
+Fetching: mustache-0.99.8.gem (100%)
+Successfully installed mustache-0.99.8
+Fetching: insist-1.0.0.gem (100%)
+Successfully installed insist-1.0.0
+Fetching: dotenv-2.7.6.gem (100%)
+Successfully installed dotenv-2.7.6
+Fetching: pleaserun-0.0.31.gem (100%)
+Successfully installed pleaserun-0.0.31
+Fetching: io-like-0.3.1.gem (100%)
+Successfully installed io-like-0.3.1
+Fetching: ffi-1.13.1.gem (100%)
+Building native extensions. This could take a while...
+Successfully installed ffi-1.13.1
+Fetching: ruby-xz-0.2.3.gem (100%)
+Successfully installed ruby-xz-0.2.3
+Fetching: childprocess-0.9.0.gem (100%)
+Successfully installed childprocess-0.9.0
+Fetching: arr-pm-0.0.10.gem (100%)
+Successfully installed arr-pm-0.0.10
+Fetching: backports-3.18.1.gem (100%)
+Successfully installed backports-3.18.1
+Fetching: json-1.8.6.gem (100%)
+Building native extensions. This could take a while...
+Successfully installed json-1.8.6
+Fetching: fpm-1.11.0.gem (100%)
+Successfully installed fpm-1.11.0
+15 gems installed
