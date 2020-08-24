@@ -1,14 +1,16 @@
 #!/bin/sh
 
+PATH=/home/alireza/packages
+
 echo == changing owner
 echo == enter password for this machine...
-sudo chown -R root.root /home/alireza/packages
+sudo chown -R root.root $PATH
 
 echo == updating the repo list...
-sudo createrepo --update /home/alireza/packages
+sudo createrepo --update $PATH
 
 echo == changing the owner ...
-sudo chmod -R o-w+r /home/alireza/packages
+sudo chmod -R o-w+r $PATH
 
 # users must run `yum clean all` to see the changes 
 

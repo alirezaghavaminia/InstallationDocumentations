@@ -1,8 +1,10 @@
 # Making and Updating a local repo
 
-## making 
+    requires sudo access
 
-1. To make the repo first copy all of the RPM files in the target destination. For example (`/home/alireza/packages`) or wherever you like. Let me call this path `PREFIX` from now. 
+## making the repo
+
+1. To make the repo first copy all of the RPM files in the target destination. For example (`/home/alireza/packages`) or wherever you like. Let me call this path `PREFIX` from now.
 
 1. change the ownership of the files `chown -R root.root $PREFIX`
 
@@ -52,3 +54,23 @@ This flag reduces the make time significantly.
 >>**NOTE 1:** Note that user must execute the `yum clean all` command to see te changes immediately.
 
 >>**NOTE 2:** You can use the provided bash file in the `SRCs` directory. But you must change it according to your needs and you must create the `.repo` file as well.
+
+## Scripts
+
+To make it easier I have prepared 4 scripts which helps configuring and updating a local yum RPM repo.These scrips are located in the [scrips](sftp://alireza@172.16.189.18/home/alireza/installationDocumentations/7_centos7/pre_1_Making_local_RPM_repo) directory.
+
+1. `make_repo.sh`
+
+    creates a repo in `$PATH` directory. Change the `$PATH` regarding to your desire.
+
+1. `rsync_rpms.sh`
+
+    copies the RPM files from `test1(centos7)` system to the `$dest` path. Change the `PATH` and `dest` pathes accordingly.
+
+1. `update_repo.sh`
+
+    updates the repo methadata located in the `PATH` directory. Change the `PATH` to your desire.
+
+1. `sync_and_update.sh`
+
+    executes the `rsync_rpms.sh` and `update_repo.sh`.
