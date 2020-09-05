@@ -9,7 +9,7 @@
 function check_stat()
 {
     if [ $? -ne 0 ]; then
-        echo "error: " $1 >> errorLog.log
+        echo "error: " $1 >> packaging_Error_log.log
         # exit
     else
         echo "   >> success."
@@ -22,7 +22,7 @@ function repackage()
     echo "=========================================================="
     echo "== Packaging " $1
     echo "=========================================================="
-    eb --skip --rebuild --package $1
+    eb --trace --skip --rebuild --package $1
     check_stat "Faild in execution of eb --skip --rebuild --package $1"
 }
 

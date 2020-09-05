@@ -1,0 +1,73 @@
+<h1 id="installing-lmod-module-based-on-lua-language">Installing Lmod (module based on Lua language)</h1>
+<p>Lmod is the a dependency for the easybuild software. It should be installed maually.</p>
+<h2 id="requires">requires:</h2>
+<ul>
+<li>Sudo previlage is required.</li>
+</ul>
+<h2 id="instructions">Instructions</h2>
+<ul>
+<li>On <code>CentOS 7</code> the latest <code>Lmod</code> can be installed using.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">sudo</span> yum install Lmod -y</span></code></pre></div>
+<ul>
+<li>On <code>CentOS 8</code> installing Lmod using repos will fail (amid dependency issue). So it is necessary to install the Lmod manually using one of the two options…
+<ol type="1">
+<li>installing using the provided RPM files.</li>
+<li>installing by compiling from the source files.</li>
+</ol></li>
+<li>On <code>Ubuntu</code> the provided package by ubuntu repositories is far outdated therefore not compatible with the EasyBuild. The only option on ubuntu system is to build the Lmod from the source files.</li>
+</ul>
+<h2 id="installation-procedure-using-provided-rpm-files">Installation procedure using provided RPM files</h2>
+<p>You should install <code>lua</code> and <code>Lmod</code> RPM files with the following steps…</p>
+<p>1- <a href="https://teamnhpcc.iut.ac.ir:8081/software-installation-instructions/-/wiki/Software+installation+instructions/Local+Yum+package+server">Setup the local repo.</a></p>
+<p>2- Install the Lmod and its dependencies by:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">sudo</span> yum install Lmod-7.3.x86_64</span></code></pre></div>
+<p>3- make a soft link for lua executable in the bin directory.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">sudo</span> mkdir -p /usr/local/bin/</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="fu">sudo</span> ln -s /opt/software/Lua/5.1.4-8/bin/lua /usr/local/bin/</span></code></pre></div>
+<p><strong>Note:</strong> <code>/opt/software/</code> is the default directory for the software installations. You can change it if you have relocated the packages.</p>
+<p>At this point <code>lua -v</code> should show the lua version.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>$ <span class="ex">lua</span> -v</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ex">Lua</span> 5.1.4.7-rtm  Copyright (C) <span class="ex">1994-2008</span> Lua.org, PUC-Rio</span></code></pre></div>
+<p>4- The <code>profile</code> file is the Lmod initialization script for the <code>bash</code> and <code>zsh</code> shells, the <code>cshrc</code> file is for <code>tcsh</code> and <code>csh</code> shells, and the <code>profile.fish</code> file is for the <code>fish</code> shell. Please copy or link the <code>profile</code> and <code>cshrc</code> files to <code>/etc/profile.d</code>, and optionally the <code>fish</code> file to <code>/etc/fish/conf.d</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">sudo</span> ln -s /opt/software/Lmod/7.3/lmod/lmod/init/profile /etc/profile.d/z00_lmod.sh</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu">sudo</span> ln -s /opt/software/Lmod/7.3/lmod/lmod/init/cshrc /etc/profile.d/z00_lmod.csh</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="fu">sudo</span> ln -s /opt/software/Lmod/7.3/lmod/lmod/init/cshrc /etc/fish/conf.d/z00_lmod.fish <span class="co"># Optional</span></span></code></pre></div>
+<p>5- login as user (via <code>bash</code> command or opening a new terminal). The <code>module</code> command should be set and <code>MODULEPATH</code> should be defined.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>$ <span class="bu">type</span> module</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="fu">module ()</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="kw">{</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="bu">eval</span> <span class="va">$($LMOD_CMD</span> <span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span><span class="va">)</span><span class="kw">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    [ <span class="va">$?</span> = <span class="ex">0</span> ] <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(${LMOD_SETTARG_CMD:-</span>:<span class="va">}</span> <span class="ex">-s</span> sh<span class="va">)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="kw">}</span></span></code></pre></div>
+<p>6- For integrating module command into users’ shells</p>
+<p><strong>Note:</strong> I could make these process automated by the packages themselves but, since the specification for different machine configurations on HPCs was different I decided to keep the installation as general as possible. Insted I have provided some bash files that will do these processes automatically.</p>
+<p><strong>Bash example:</strong></p>
+<p>On login, the bash shell first reads <code>/etc/profile</code>, and if <code>profiles.d</code> is activated, that in turn should source all the <code>*.sh</code> files in <code>/etc/profile.d</code> with something like:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">if</span><span class="bu"> [</span> <span class="ot">-d</span> /etc/profile.d<span class="bu"> ]</span>; <span class="kw">then</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>  <span class="kw">for</span> <span class="ex">i</span> in /etc/profile.d/*.sh<span class="kw">;</span> <span class="kw">do</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    <span class="kw">if</span><span class="bu"> [</span> <span class="ot">-r</span> <span class="va">$i</span><span class="bu"> ]</span>; <span class="kw">then</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>      <span class="bu">.</span> <span class="va">$i</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>    <span class="kw">fi</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>  <span class="kw">done</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="kw">fi</span></span></code></pre></div>
+<p>Similarly, the system BASHRC file should source all the <code>*.sh</code> files in <code>/etc/profile.d</code> as well. Here is where things can get complicated. Please refer to the please refer to the <a href="https://lmod.readthedocs.io/en/latest/030_installing.html">documentation section (Integrating module Into Users’ Shells)</a> for details.</p>
+<h2 id="installation-procedure-using-source-files">Installation procedure using source files</h2>
+<p>Use the provided scripts to install lua and Lmod sutable for your OS.</p>
+<p><strong>Notes1</strong> At the beggining of each script there are a couple of variables pointing to the location of the source files and the prefix of the installation. change them accordingly.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="va">local_installation_prefix=</span>/opt/software</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="va">local_sources_dir=</span>~/.local/easybuild/sources/</span></code></pre></div>
+<p><strong>note2</strong> The script tries to download the required sources from theire web pages if it doesn’t find them in the provided address. Yet do to the sanctions its try may fail.</p>
+<h2 id="adding-module-path">Adding module path</h2>
+<p>Lmod will look for modules in the <code>MODULEPATH</code> directories. The <code>MODULEPATH</code> can be modified by one of the following methods.</p>
+<p>1- using <code>module use</code> command.</p>
+<p><strong>e.g.:</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="ex">module</span> use /opt/modules/all</span></code></pre></div>
+<p>In this method user can also use the <code>unuse</code> command to delete any path from the <code>MODULEPATH</code>.</p>
+<p>The downside of this method is that users must type this command every time they open a new terminal.</p>
+<p>2- using <code>MODULEPATH</code> variable.</p>
+<p>Users can modify <code>MODULEPATH</code> variable in their <code>.bashrc</code> or whatever terminal they use.</p>
+<p><strong>Bash example:</strong></p>
+<p>Adding this line to the <code>.bashrc</code> file will do the job.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="va">MODULEPATH=$MODULEPATH</span>:/opt/modules/all</span></code></pre></div>
+<p><strong>NOTE:</strong> please be advised that <code>/opt/modules/all</code> is the path in which the modules will be located by default.</p>
