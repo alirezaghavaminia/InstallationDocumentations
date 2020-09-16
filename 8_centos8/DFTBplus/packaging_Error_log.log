@@ -1,0 +1,9 @@
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/t/Tcl/Tcl-8.6.9-GCCcore-8.3.0.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/l/libxml2/libxml2-2.9.9-GCCcore-8.3.0.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/h/hwloc/hwloc-1.11.12-GCCcore-8.3.0.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/o/OpenMPI/OpenMPI-3.1.4-GCC-8.3.0.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/g/gompi/gompi-2019b.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/f/FFTW/FFTW-3.3.8-gompi-2019b.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/s/ScaLAPACK/ScaLAPACK-2.0.2-gompi-2019b.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/f/foss/foss-2019b.eb
+error:  Faild in execution of eb --skip --rebuild --package /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/s/SciPy-bundle/SciPy-bundle-2019.10-foss-2019b-Python-2.7.16.eb

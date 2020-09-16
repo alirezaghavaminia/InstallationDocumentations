@@ -1,0 +1,8 @@
+== temporary log file in case of crash /tmp/eb-7qt85557/easybuild-ztbuhdq2.log
+== found valid index for /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs, so using it...
+Dry run: printing build status of easyconfigs and dependencies
+ * [x] /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/m/M4/M4-1.4.17.eb (module: M4/1.4.17)
+ * [ ] /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/g/GCC/GCC-5.2.0.eb (module: GCC/5.2.0)
+ * [ ] /opt/software/EasyBuild/4.2.2/easybuild/easyconfigs/a/AutoDock/AutoDock-4.2.5.1-GCC-5.2.0.eb (module: AutoDock/4.2.5.1-GCC-5.2.0)
+== Temporary log file(s) /tmp/eb-7qt85557/easybuild-ztbuhdq2.log* have been removed.
+== Temporary directory /tmp/eb-7qt85557 has been removed.
